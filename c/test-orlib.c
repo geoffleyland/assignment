@@ -54,8 +54,8 @@ int main(int argc, const char **argv)
     exit(1);
   }
 
-  M = calloc(n * n, sizeof(double));
-  result = malloc(2 * n * sizeof(size_t));
+  M = (double*)calloc(n * n, sizeof(double));
+  result = (size_t*)malloc(2 * n * sizeof(size_t));
 
   if (!quiet) fprintf(stdout, "Reading %zu x %zu\n", n, n);
 
