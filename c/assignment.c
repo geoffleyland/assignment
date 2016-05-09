@@ -128,7 +128,7 @@ static void initialise_flow(scratch *S)
 /*--------------------------------------------------------------------------*/
 /* Most of the work in the Hungarian Algorithm is finding a minimal cover
    of all the zeroes in the modified cost matrix.
-   This is analogous to finding a maximim flow from rows to columns of the
+   This is analogous to finding a maximum flow from rows to columns of the
    matrix where only row, column pairs with zero cost have an arc with a
    capacity of one between them.
    We find a maximum flow by repeatedly searching the network for flow
