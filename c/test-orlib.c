@@ -48,7 +48,11 @@ int main(int argc, const char **argv)
     exit(1);
   }
 
-  fscanf(tf, "%zu", &n);
+  if (fscanf(tf, "%zu", &n) == 0)
+  {
+    fprintf(stderr, "Error: Couldn't read problem size in file '%s'\n", test_file);
+    exit(1);
+  }
 
   M = calloc(n * n, sizeof(double));
   result = malloc(2 * n * sizeof(size_t));
@@ -90,7 +94,12 @@ int main(int argc, const char **argv)
   }
 
   ok = 0;
-  fscanf(af, "%*[^\n]");
+  if (fscanf(af, "%*[^\n]") != 0)
+  {
+    fprintf(stderr, "Error: Couldn't read answer file '%s'\n", answer_file);
+    exit(1);
+  }
+
   while (fscanf(af, "%11s %lf", answer_name, &answer) != EOF)
   {
     if (strncmp(answer_name, test_file + strlen(test_file) - strlen(answer_name) - 4, strlen(answer_name)) == 0)
