@@ -109,6 +109,8 @@ int main(int argc, const char **argv)
     }
   }
 
+  fclose(af);
+
   if (!ok)
   {
     fprintf(stderr, "Error: Couldn't find answer for '%s' in answer file\n", test_file);
@@ -126,6 +128,9 @@ int main(int argc, const char **argv)
   }
 
   fprintf(stdout, "%s\n", fabs(cost - answer) < 1e-8 ? "PASS" : "FAIL");
+
+  free(M);
+  free(result);
 
   return fabs(cost - answer) > 1e-8;
 }
