@@ -31,14 +31,14 @@ static void create_scratch(size_t n, double *M, size_t *result, scratch *S)
   S->n = n;
   S->result = result;
 
-  S->W = malloc(n * n * sizeof(double));
+  S->W = (double*)malloc(n * n * sizeof(double));
   memcpy(S->W, M, n * n * sizeof(double));
 
-  S->C = malloc(n * n * sizeof(int));
-  S->internal_flow = calloc(n * n, sizeof(int));
-  S->ss_flow = calloc(2 * n, sizeof(int));
-  S->labelled = malloc(2 * n * sizeof(int));
-  S->pred = malloc(2 * n * sizeof(size_t));
+  S->C = (int*)malloc(n * n * sizeof(int));
+  S->internal_flow = (int*)calloc(n * n, sizeof(int));
+  S->ss_flow = (int*)calloc(2 * n, sizeof(int));
+  S->labelled = (int*)malloc(2 * n * sizeof(int));
+  S->pred = (size_t*)malloc(2 * n * sizeof(size_t));
 }
 
 
