@@ -145,16 +145,16 @@ static size_t scan_left(size_t i, scratch *S);
 
 static size_t scan_right(size_t j, scratch *S)
 {
-  size_t i, tail;
-  if (S->ss_flow[S->n + j] == 0) /* we've found a path to the sink */
-    return S->n + j;
+  size_t i, tail, n = S->n;
+  if (S->ss_flow[n + j] == 0) /* we've found a path to the sink */
+    return n + j;
   /* current node is on the right: search its column */
-  for (i = 0; i < S->n; ++i)
+  for (i = 0; i < n; ++i)
   {
-    if (S->W[i * S->n + j] == 0.0 && S->internal_flow[i * S->n + j] == 1 && !S->labelled[i])
+    if (S->W[i * n + j] == 0.0 && S->internal_flow[i * n + j] == 1 && !S->labelled[i])
     {
       S->labelled[i] = 1;
-      S->pred[i] = S->n + j;
+      S->pred[i] = n + j;
       if ((tail = scan_left(i, S)) != SIZE_MAX)
         return tail;
     }
@@ -165,14 +165,14 @@ static size_t scan_right(size_t j, scratch *S)
 
 static size_t scan_left(size_t i, scratch *S)
 {
-  size_t j, tail;
+  size_t j, tail, n = S->n;
   /* current node is on the left: search its row */
-  for (j = 0; j < S->n; ++j)
+  for (j = 0; j < n; ++j)
   {
-    if (S->W[i * S->n + j] == 0.0 && S->internal_flow[i * S->n + j] == 0 && !S->labelled[S->n + j])
+    if (S->W[i * n + j] == 0.0 && S->internal_flow[i * n + j] == 0 && !S->labelled[n + j])
     {
-      S->labelled[S->n + j] = 1;
-      S->pred[S->n + j] = i;
+      S->labelled[n + j] = 1;
+      S->pred[n + j] = i;
       if ((tail = scan_right(j, S)) != SIZE_MAX)
         return tail;
     }
