@@ -1,6 +1,6 @@
 .DS_Store
-test
+test-orlib
 test-cases
 .vagrant
 callgrind.out.*
-test.dSYM
+test-orlib.dSYM
