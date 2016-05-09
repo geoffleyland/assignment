@@ -1,6 +1,6 @@
 # Assignment - A C implementation of the Hungarian algorithm for the Assignment problem
 
-[![Build Status](https://travis-ci.org/geoffleyland/assignment?branch=master)](https://travis-ci.org/geoffleyland/assignment)
+[![Build Status](https://travis-ci.org/geoffleyland/assignment.svg?branch=master)](https://travis-ci.org/geoffleyland/assignment)
 
 ## 1. What?
 
