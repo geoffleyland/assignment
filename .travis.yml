@@ -1,3 +1,7 @@
+env:
+  global:
+   - secure: "GLdf3GvtjebYnha5vreyZO0EmW05OPoRF0hkgY0g1MvUX5NDw9DV4cmAo0frljng339GMPuUZHtMLHCA+Y45TreBuvAYVRfTMI5g0ScEg8vHjfJ9egKu0YHNI+OIVRkPWpC9GFOkp0FGAUw1n1gX/WX3G6azwBcy53FXPNj5vK6BlnlGRkZ4xiJtlRlrT5YPxMB7q+U+cDYSFBdi55S8zYpRvbpi4LuMamqbwfIn3hurdJoxrmPmnM/NzNe2DareyaLjCgW5ZHaZYFBNY1mZ+V9nvcNTsRc+f3gZ2qIiZlJtEm7POHfQ/+U/XA66HaHduR0WaPxIUhtRknECS4zMwJv8JjTJ5Pow9KZKDKeHTEeH+bpScbHF58ffm0BXhvV0M/YhzEcbsPBf0iUHbT0hUzuYMCgHg3Wo+f0UMUwV3RPp+z5/kTtmWYiTubgUN7Q5Aytp9/e5W2N6CPVIJ4RWfRSu4jJTSi8J4amTK+/26t0xkaryCEYKn7ydIp1HpD3U2iOCc8Zb5KGSldOgjm+QH6vNZR3Y67wHnD0soyr+eyQNzOANR6sxMwDh1VtZIOafwa8hZdpIvsFqq/nzxnBtLa9wDvB+MPzhjecczScKbJtVA3kXsoQAMTZfYfvjCYzAjbP0/1RyBy4ZpmdWtIvirhLuCkHwUNGQJQfe4PczZ4w="
+
 language: c
 
 compiler:
@@ -7,3 +11,14 @@ compiler:
 install: make test-data
 
 script: make test
+
+addons:
+  coverity_scan:
+    project:
+      name: "geoffleyland/assignment"
+      description: "Hungarian algorithm for the assignment problem"
+    notification_email: geoff.leyland@incremental.co.nz
+    build_command_prepend: "make clean"
+    build_command:   "make"
+    branch_pattern: master
+

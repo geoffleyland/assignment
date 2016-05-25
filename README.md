@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/geoffleyland/assignment.svg?branch=master)](https://travis-ci.org/geoffleyland/assignment)
 
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/8962/badge.svg)](https://scan.coverity.com/projects/geoffleyland-assignment)
+
 ## 1. What?
 
 This is a very vanilla implementation of the [hungarian algorithm](https://en.wikipedia.org/wiki/Hungarian_algorithm) in C.

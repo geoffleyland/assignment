@@ -16,3 +16,6 @@ test-cases/OR-Library/assignp800.txt:
 test-cases/OR-Library/assignopt.txt:
 	mkdir -p test-cases/OR-Library
 	cd test-cases/OR-Library && curl -O $(ORLIB_URL)assignopt.txt
+
+clean:
+	rm test-orlib
