@@ -10,8 +10,6 @@ compiler:
 
 install: make test-data
 
-script: make test
-
 addons:
   coverity_scan:
     project:
@@ -22,3 +20,4 @@ addons:
     build_command:   "make"
     branch_pattern: master
 
+script: make test
