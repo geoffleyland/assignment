@@ -18,4 +18,4 @@ test-cases/OR-Library/assignopt.txt:
 	cd test-cases/OR-Library && curl -O $(ORLIB_URL)assignopt.txt
 
 clean:
-	rm test-orlib
+	-rm test-orlib
