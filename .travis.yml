@@ -1,14 +1,12 @@
-env:
-  global:
-   - secure: "GLdf3GvtjebYnha5vreyZO0EmW05OPoRF0hkgY0g1MvUX5NDw9DV4cmAo0frljng339GMPuUZHtMLHCA+Y45TreBuvAYVRfTMI5g0ScEg8vHjfJ9egKu0YHNI+OIVRkPWpC9GFOkp0FGAUw1n1gX/WX3G6azwBcy53FXPNj5vK6BlnlGRkZ4xiJtlRlrT5YPxMB7q+U+cDYSFBdi55S8zYpRvbpi4LuMamqbwfIn3hurdJoxrmPmnM/NzNe2DareyaLjCgW5ZHaZYFBNY1mZ+V9nvcNTsRc+f3gZ2qIiZlJtEm7POHfQ/+U/XA66HaHduR0WaPxIUhtRknECS4zMwJv8JjTJ5Pow9KZKDKeHTEeH+bpScbHF58ffm0BXhvV0M/YhzEcbsPBf0iUHbT0hUzuYMCgHg3Wo+f0UMUwV3RPp+z5/kTtmWYiTubgUN7Q5Aytp9/e5W2N6CPVIJ4RWfRSu4jJTSi8J4amTK+/26t0xkaryCEYKn7ydIp1HpD3U2iOCc8Zb5KGSldOgjm+QH6vNZR3Y67wHnD0soyr+eyQNzOANR6sxMwDh1VtZIOafwa8hZdpIvsFqq/nzxnBtLa9wDvB+MPzhjecczScKbJtVA3kXsoQAMTZfYfvjCYzAjbP0/1RyBy4ZpmdWtIvirhLuCkHwUNGQJQfe4PczZ4w="
-
 language: c
 
 compiler:
   - clang
   - gcc
 
-install: make test-data
+env:
+  global:
+   - secure: "Bumko1MHEwJ4nKe4WLxoBvM8muJXP76x/+1hoTwMR8K87urcTooI9BaHARN+VNCVi/fRqhs1gPKwt/YO5NkgUtf61g5jIT8dwR1MC4FIOA6EyGN3TyGH4Gi8uTfFm0g2Q0oihi3h5YR0XC+bRcgrac3CqYqT0jhp1iy5RQTNswqCgkELoQtT/cjRD8vfElu32RzMRfEWPN65HkurgahVdXG58e9HFvDbzMxJhWY+vNNbc7ZndRK/GnsF9fzHC1ZcF8hE/5i6P4M9Dd6/p1S+dVYR0VYfT8eHUpCfQ36Uv4fiFgC6dpSNSLdFs0eksYWx6rbixvIL+/N/CeoT7clWcTQupZrUaz4ucagMYOjUD2XBwZE9iebmsFOScbPqgwUsYCubKDbREyvkZG+OTXPReiGOA3QGTPauGmiGklhn+B/Xo1h9/0E8DwOjOq3ODB3V5i20PRjOQt62LQYuY1OR8K8dxWdMjdu/SBPWWnutVOzrs4dpPAWcYYZldZ+j1U2huBLAPuXKnwFBxAP/GQj8QYoMyytPm83r9DgJe2llc3NTs7/jnxQq1BjJF5MsBRq4nQBNTRMUEMdgO39xjpR1ccP2wjlRroloH/D0bPMW58rN+hzRDQwDc7upSa9tNC1hT5FaIfmUi463FiZFxooKgADBVyqJJD1D8v0X0+mLKFw="
 
 addons:
   coverity_scan:
@@ -19,5 +17,7 @@ addons:
     build_command_prepend: "make clean"
     build_command:   "make"
     branch_pattern: master
+
+install: make test-data
 
 script: make test
