@@ -4,6 +4,7 @@
 #include <float.h>
 #include <string.h>
 #include <math.h>
+#include <limits.h>
 
 #include "assignment.h"
 
@@ -15,7 +16,7 @@ int main(int argc, const char **argv)
   size_t i, j, n;
   long fpos;
   long type;
-  int quiet = 0, ok = 0, argi = 1;
+  int quiet = 0, ok = 0, argi = 1, status;
   const char *test_file, *answer_file;
   char answer_name[16];
   FILE *tf, *af;
@@ -51,6 +52,13 @@ int main(int argc, const char **argv)
   if (fscanf(tf, "%zu", &n) == 0)
   {
     fprintf(stderr, "Error: Couldn't read problem size in file '%s'\n", test_file);
+    exit(1);
+  }
+
+  if (n > 32767)
+  {
+    /* This is partly to try to keep coverity happy */
+    fprintf(stderr, "Error: problem too large (greater than 32767) in '%s'\n", test_file);
     exit(1);
   }
 
@@ -118,7 +126,16 @@ int main(int argc, const char **argv)
   }
 
   if (!quiet) fprintf(stdout, "Solving\n");
-  cost = assignment(n, M, result);
+  if ((status = assignment(n, M, result, &cost)) != 0)
+  {
+    if (status == ASSIGNMENT_PROBLEM_TOO_LARGE)
+      fprintf(stderr, "Error: problem too large solving '%s'\n", test_file);
+    else if (status == ASSIGNMENT_NOT_ENOUGH_MEMORY)
+      fprintf(stderr, "Error: not enough memory solving '%s'\n", test_file);
+    else
+      fprintf(stderr, "Error: unknown error solving '%s'\n", test_file);
+    exit(1);
+  }
 
   if (!quiet)
   {

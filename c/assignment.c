@@ -26,12 +26,24 @@ typedef struct scratch
 } scratch;
 
 
-static void create_scratch(size_t n, double *M, size_t *result, scratch *S)
+static void free_scratch(scratch *S)
+{
+  if (S->pred)              free(S->pred);
+  if (S->labelled)          free(S->labelled);
+  if (S->ss_flow)           free(S->ss_flow);
+  if (S->internal_flow)     free(S->internal_flow);
+  if (S->C)                 free(S->C);
+  if (S->W)                 free(S->W);
+}
+
+
+static int create_scratch(size_t n, double *M, size_t *result, scratch *S)
 {
   S->n = n;
   S->result = result;
 
   S->W = (double*)malloc(n * n * sizeof(double));
+  if (!S->W) return 0;
   memcpy(S->W, M, n * n * sizeof(double));
 
   S->C = (int*)malloc(n * n * sizeof(int));
@@ -39,17 +51,14 @@ static void create_scratch(size_t n, double *M, size_t *result, scratch *S)
   S->ss_flow = (int*)calloc(2 * n, sizeof(int));
   S->labelled = (int*)malloc(2 * n * sizeof(int));
   S->pred = (size_t*)malloc(2 * n * sizeof(size_t));
-}
 
-
-static void free_scratch(scratch *S)
-{
-  free(S->pred);
-  free(S->labelled);
-  free(S->ss_flow);
-  free(S->internal_flow);
-  free(S->C);
-  free(S->W);
+  if (S->C && S->internal_flow && S->ss_flow && S->labelled && S->pred)
+    return 1;
+  else
+  {
+    free_scratch(S);
+    return 0;
+  }
 }
 
 
@@ -285,25 +294,30 @@ static void augment(scratch *S)
 
 /*--------------------------------------------------------------------------*/
 
-double assignment(size_t n, double *M, size_t *result)
+int assignment(size_t n, double *M, size_t *result, double *cost)
 {
-  double cost = 0.0;
   size_t i;
 
+  if (n > 32767)
+   /* at this point n*n gets close to as much as you can fit in 32 bits */
+    return ASSIGNMENT_PROBLEM_TOO_LARGE;
+
   scratch S;
-  create_scratch(n, M, result, &S);
+  if (!create_scratch(n, M, result, &S))
+    return ASSIGNMENT_NOT_ENOUGH_MEMORY;
 
   zero_rows(&S);
   zero_columns(&S);
   initialise_flow(&S);
 
+  *cost = 0.0;
   while (1)
   {
     memset(S.C, 0, n * n * sizeof(int));
     if (cover(&S) == n)
     {
       for (i = 0; i < n; ++i)
-        cost += M[n * result[i*2] + result[i*2+1]];
+        (*cost) += M[n * result[i*2] + result[i*2+1]];
       break;
     }
     augment(&S);
@@ -311,8 +325,7 @@ double assignment(size_t n, double *M, size_t *result)
 
   free_scratch(&S);
 
-  return cost;
+  return 0;
 }
-
 
 /*--------------------------------------------------------------------------*/
