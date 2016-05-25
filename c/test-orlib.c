@@ -84,7 +84,15 @@ int main(int argc, const char **argv)
   else
   {
     while (fscanf(tf, "%zu %zu %lf", &i, &j, &t) != EOF)
-      M[(i-1) * n + (j-1)] = t;
+    {
+      if (i < n && j < n)
+        M[(i-1) * n + (j-1)] = t;
+      else
+      {
+        fprintf(stderr, "Error: Bad index in test case file '%s'\n", test_file);
+        exit(1);
+      }
+    }
 
     for (i = 0; i < n; ++i)
       for (j = 0; j < n; ++j)
