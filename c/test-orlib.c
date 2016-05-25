@@ -85,7 +85,7 @@ int main(int argc, const char **argv)
   {
     while (fscanf(tf, "%zu %zu %lf", &i, &j, &t) != EOF)
     {
-      if (i < n && j < n)
+      if (i <= n && j <= n)
         M[(i-1) * n + (j-1)] = t;
       else
       {
