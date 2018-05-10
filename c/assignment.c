@@ -160,7 +160,7 @@ static size_t scan_right(size_t j, scratch *S)
   /* current node is on the right: search its column */
   for (i = 0; i < n; ++i)
   {
-    if (S->W[i * n + j] == 0.0 && S->internal_flow[i * n + j] == 1 && !S->labelled[i])
+    if (fabs(S->W[i * n + j]) < EPSILON && S->internal_flow[i * n + j] == 1 && !S->labelled[i])
     {
       S->labelled[i] = 1;
       S->pred[i] = n + j;
@@ -178,7 +178,7 @@ static size_t scan_left(size_t i, scratch *S)
   /* current node is on the left: search its row */
   for (j = 0; j < n; ++j)
   {
-    if (S->W[i * n + j] == 0.0 && S->internal_flow[i * n + j] == 0 && !S->labelled[n + j])
+    if (fabs(S->W[i * n + j]) < EPSILON && S->internal_flow[i * n + j] == 0 && !S->labelled[n + j])
     {
       S->labelled[n + j] = 1;
       S->pred[n + j] = i;
@@ -251,7 +251,7 @@ static int cover(scratch *S)
       if (S->ss_flow[i] == 0)
       {
         for (j = 0; j < S->n; ++j)
-          if (S->W[i * S->n + j] == 0.0)
+          if (fabs(S->W[i * S->n + j]) < EPSILON)
           {
             S->labelled[i] = 1;
             if ((tail = scan_left(i, S)) != SIZE_MAX)
